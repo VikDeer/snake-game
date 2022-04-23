@@ -26,6 +26,7 @@ let startBlock = document.querySelector('.start-game'),
    body = document.querySelector('body'),
    pause = document.querySelector('.pause');
 
+
 pause.onclick = function() {
    if (moveIn) {
       clearInterval(moveIn);
@@ -50,9 +51,24 @@ startButton.onclick = function() {
    moveIn = setInterval(() => move(), 100);
 }
 endButton.onclick = function() {
-   location.reload();
+   endBlock.style.display = "none";
+   clear();
+   newFood();
+   snake = [
+      [0,0],
+      [30,0]
+   ];
+   d = 1;
+   drawBody();
+   moveIn = setInterval(() => move(), 100);
 }
 
+function clear() {
+   ctx.clearRect (food[0], food[1], size, size);
+   snake.forEach(body => {
+      ctx.clearRect (body[0], body[1], size, size)
+   });
+}
 
 function rand (min, max) {
    n = Math.floor(min + Math.random() * (max + 1 - min));
