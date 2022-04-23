@@ -1,0 +1,37 @@
+<html lang="ru">
+<head>
+   <meta charset="UTF-8">
+   <meta http-equiv="X-UA-Compatible" content="IE=edge">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <title>Змейка</title>
+   <link rel="stylesheet" href="style.css">
+</head> 
+<body>
+
+   <div class="start-game">
+      <h1>Змейка</h1>
+      <h3>Управление</h3>
+      <p>Управлять стрелками клавиатуры &#8592; &#8593; &#8594; &#8595;</p>
+      <h3>Настройки</h3>
+      <div class="settings">
+         <div><label for="background-color">Цвет фона</label><br><input class="background-color" name="background-color" type="color" value="#66A1D2"></div>
+         <div><label for="snake-color">Цвет змеи</label><br><input class="snake-color" name="snake-color" type="color" value="#000000"></div>
+         <div><label for="food-color">Цвет еды</label><br><input class="food-color" name="food-color" type="color" value="#FF0000"></div>
+         <button class="set-color">OK</button>
+      </div>
+      <button class="start">Начать</button>
+   </div>
+
+   <button class="pause-button"><img class="pause" src="files/pause.png" width="50px" height="50px" alt="Пауза"></button>
+
+   <div class="end-game">
+      <h2>YOU DIED</h2>
+      <button class="end">Начать заново</button>
+   </div>
+
+   <canvas id="canvas">HTML5 не поддерживается</canvas>
+   
+</body>
+
+<script src="script.js"></script>
+</html>
