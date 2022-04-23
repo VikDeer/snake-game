@@ -162,13 +162,13 @@ function eat(x,y) {
 
 
 document.addEventListener('keydown', function(event) {
-   if (event.code == 'ArrowLeft') {
+   if ((event.code == 'ArrowLeft' || event.code == 'KeyA') && d != 1) {
      d = 2;
-   } else if (event.code == 'ArrowUp') {
+   } else if ((event.code == 'ArrowUp' || event.code == 'KeyW') && d != 4) {
       d = 3;
-   } else if (event.code == 'ArrowDown') {
+   } else if ((event.code == 'ArrowDown' || event.code == 'KeyS') && d != 3) {
       d = 4;
-   } else if (event.code == 'ArrowRight') {
+   } else if ((event.code == 'ArrowRight' || event.code == 'KeyD') && d != 2) {
       d = 1;
    }
  });
