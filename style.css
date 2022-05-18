@@ -50,12 +50,13 @@ h1, h2, h3 {
 }
 .settings {
    display: flex;
+   flex-wrap: wrap;
    gap: 20px;
    justify-content: center;
    margin-bottom: 10px;
 }
-.set-color {
-   align-self: end;
+.settings .random {
+   width: 100%;
 }
 
 .pause-button {
