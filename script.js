@@ -2,65 +2,31 @@ let c = document.getElementById('canvas'),
    ctx = canvas.getContext('2d'),
    size = 30,
    food = [],
-   snake = [
-      [0,0],
-      [30,0]
-   ],
-   d = 1,
+   snake = [],
+   d,// 1 - влево, 2 - право, 3 - вверх, 4 - вниз
    moveIn,
-   fColor = "#FF0000",
-   sColor = "#000000";       // 1 - влево, 2 - право, 3 - вверх, 4 - вниз
+   fColor,
+   sColor,
+   rColor,
+   speed,
+   boost,
+   pauseBtn = document.querySelector('.pause');
 c.width = Math.round(innerWidth / size) * size;
 c.height = Math.round(innerHeight / size) * size;
 let width = c.width - size,
    height = c.height - size;
 
-let startBlock = document.querySelector('.start-game'),
-   startButton = document.querySelector('.start-game .start'),
-   endBlock = document.querySelector('.end-game'),
-   endButton = document.querySelector('.end-game .end'),
-   bColor = document.querySelector('.background-color'),
-   snakeColor = document.querySelector('.snake-color'),
-   foodColor = document.querySelector('.food-color'),
-   setColor = document.querySelector('.set-color'),
-   body = document.querySelector('body'),
-   pause = document.querySelector('.pause');
+pauseBtn.onclick = pause;
 
-
-pause.onclick = function() {
+function pause() {
    if (moveIn) {
       clearInterval(moveIn);
       moveIn = 0;
-      pause.src = "files/start.png";
+      pauseBtn.src = "files/start.png";
    } else {
-      moveIn = setInterval(() => move(), 100);
-      pause.src = "files/pause.png";
+      moveIn = setInterval(() => move(), speed);
+      pauseBtn.src = "files/pause.png";
    }
-}
-
-setColor.onclick = function() {
-   body.style.backgroundColor = bColor.value;
-   fColor = foodColor.value;
-   sColor = snakeColor.value;
-}
-
-startButton.onclick = function() {
-   newFood();
-   drawBody();
-   startBlock.style.display = "none";
-   moveIn = setInterval(() => move(), 100);
-}
-endButton.onclick = function() {
-   endBlock.style.display = "none";
-   clear();
-   newFood();
-   snake = [
-      [0,0],
-      [30,0]
-   ];
-   d = 1;
-   drawBody();
-   moveIn = setInterval(() => move(), 100);
 }
 
 function clear() {
@@ -70,8 +36,13 @@ function clear() {
    });
 }
 
-function rand (min, max) {
+function randomNumber (min, max) {
    n = Math.floor(min + Math.random() * (max + 1 - min));
+   return n;
+}
+
+function rand (min, max) {
+   n = randomNumber(min, max);
    number = Math.round( n / size) * size;
    return number;
 }
@@ -88,6 +59,10 @@ function foodCoord() {
 
 function newFood() {
    foodCoord();
+   if (rColor) {
+      let key = randomNumber(0,colorList.length-1);
+      fColor = colorList[key];
+   }
    ctx.fillStyle = fColor;
    ctx.fillRect (food[0], food[1], size, size);
 }
@@ -124,7 +99,6 @@ function move() {
       y = snake[last][1] + size;
    }
 
-   //console.log(x); console.log(y);
    death(x,y);
    
    newBody(x,y);
@@ -155,20 +129,28 @@ function death (x,y) {
 
 function eat(x,y) {
    if (x == food[0] && y == food[1]) {
+      sColor = fColor;
       newFood();
+      if (boost && speed > 70) {
+         speed -= 3;
+         clearInterval(moveIn);
+         moveIn = setInterval(() => move(), speed);
+      }
       return 1;
    }
 }
 
 
 document.addEventListener('keydown', function(event) {
-   if ((event.code == 'ArrowLeft' || event.code == 'KeyA') && d != 1) {
+   if ((event.code == 'ArrowLeft' || event.code == 'KeyA') && d != 1 && moveIn) {
      d = 2;
-   } else if ((event.code == 'ArrowUp' || event.code == 'KeyW') && d != 4) {
+   } else if ((event.code == 'ArrowUp' || event.code == 'KeyW') && d != 4 && moveIn) {
       d = 3;
-   } else if ((event.code == 'ArrowDown' || event.code == 'KeyS') && d != 3) {
+   } else if ((event.code == 'ArrowDown' || event.code == 'KeyS') && d != 3 && moveIn) {
       d = 4;
-   } else if ((event.code == 'ArrowRight' || event.code == 'KeyD') && d != 2) {
+   } else if ((event.code == 'ArrowRight' || event.code == 'KeyD') && d != 2 && moveIn) {
       d = 1;
+   } else if (event.code == 'Space') {
+      pause();
    }
  });
