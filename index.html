@@ -11,14 +11,24 @@
    <div class="start-game">
       <h1>Змейка</h1>
       <h3>Управление</h3>
-      <p>Управлять стрелками клавиатуры &#8592; &#8593; &#8594; &#8595;</p>
+      <p>Управлять стрелками клавиатуры &#8592; &#8593; &#8594; &#8595; или WASD</p>
+      <p>Теперь поставить на паузу можно с помощью пробела</p>
       <p>Только с компьютера!</p>
       <h3>Настройки</h3>
+      <div class="settings color">
+         <div><label for="background-color">Цвет фона</label><br><input name="background-color" type="color" value="#66A1D2"></div>
+         <div><label for="snake-color">Цвет змеи</label><br><input name="snake-color" type="color" value="#000000"></div>
+         <div><label for="food-color">Цвет еды</label><br><input name="food-color" type="color" value="#FF0000"></div>
+         <div class="random"><label><input type="checkbox">Случайные цвета</label></div>
+      </div>
       <div class="settings">
-         <div><label for="background-color">Цвет фона</label><br><input class="background-color" name="background-color" type="color" value="#66A1D2"></div>
-         <div><label for="snake-color">Цвет змеи</label><br><input class="snake-color" name="snake-color" type="color" value="#000000"></div>
-         <div><label for="food-color">Цвет еды</label><br><input class="food-color" name="food-color" type="color" value="#FF0000"></div>
-         <button class="set-color">OK</button>
+         <label for="speed">Выбрать скорость</label>
+         <select name="speed" class="speed">
+            <option value="120">Медленно</option>
+            <option selected value="90">Средне</option>
+            <option value="70">Быстро</option>
+            <option value="boost">Постепенно увеличивать</option>
+         </select>
       </div>
       <button class="start">Начать</button>
    </div>
@@ -34,5 +44,7 @@
    
 </body>
 
+<script src="colorList.js"></script>
 <script src="script.js"></script>
+<script src="start.js"></script>
 </html>
